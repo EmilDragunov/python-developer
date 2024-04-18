@@ -1,2 +1,2 @@
 # Yandex Projects
-These projects were completed during my training at Yandex Practicum as a Python Developer.
+Данные проекты были выполнены в ходе обучения в Яндекс.Практикуме, профессии "Python-разработчик"
