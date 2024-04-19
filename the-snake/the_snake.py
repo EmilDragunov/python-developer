@@ -22,9 +22,11 @@ BOARD_BACKGROUND_COLOR = (0, 0, 0)
 
 BORDER_COLOR = (93, 216, 228)
 
+SNAKE_COLOR = (0, 255, 0)
+
 APPLE_COLOR = (255, 0, 0)
 
-SNAKE_COLOR = (0, 255, 0)
+STONE_COLOR = (128, 128, 128)
 
 SNAKE_START = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
 
@@ -55,19 +57,6 @@ class GameObject:
     def randomize_position(self, snake_positions):
         random_cell = choice(tuple(ALL_CELLS - set(snake_positions)))
         return random_cell
-
-
-class Apple(GameObject):
-    """Дочерний класс Apple."""
-
-    def __init__(self, position=SNAKE_START):
-        self.body_color = APPLE_COLOR
-        self.position = self.randomize_position(position)
-
-    def draw(self):
-        """Метод draw класса Apple."""
-        self.create_cell(self.position, self.body_color, 0)
-        self.create_cell(self.position, BORDER_COLOR, 1)
 
 
 class Snake(GameObject):
@@ -115,6 +104,32 @@ class Snake(GameObject):
         screen.fill(BOARD_BACKGROUND_COLOR)
 
 
+class Apple(GameObject):
+    """Дочерний класс Apple."""
+
+    def __init__(self, position=SNAKE_START):
+        self.body_color = APPLE_COLOR
+        self.position = self.randomize_position(position)
+
+    def draw(self):
+        """Метод draw класса Apple."""
+        self.create_cell(self.position, self.body_color, 0)
+        self.create_cell(self.position, BORDER_COLOR, 1)
+
+
+class Stone(GameObject):
+    """Дочерний класс Stone."""
+
+    def __init__(self, position=SNAKE_START):
+        self.body_color = STONE_COLOR
+        self.position = self.randomize_position(position)
+
+    def draw(self):
+        """Метод draw класса Stone."""
+        self.create_cell(self.position, self.body_color, 0)
+        self.create_cell(self.position, BORDER_COLOR, 1)
+
+
 def handle_keys(game_object):
     """Функция обрабатывает нажатие клавиш"""
     for event in pygame.event.get():
@@ -141,18 +156,23 @@ def main():
 
     snake = Snake()
     apple = Apple()
+    stone = Stone()
 
     while True:
         clock.tick(SPEED)
         handle_keys(snake)
         snake.move()
-        if snake.positions[0] in snake.positions[2:]:
+        if (snake.positions[0] in snake.positions[2:]
+           or snake.positions[0] == stone.position):
             snake.reset()
+            apple.position = apple.randomize_position(SNAKE_START)
+            stone.position = stone.randomize_position(SNAKE_START)
         if snake.get_head_position() == apple.position:
             snake.length += 1
             apple.position = apple.randomize_position(snake.positions)
-        apple.draw()
         snake.draw()
+        apple.draw()
+        stone.draw()
 
         pygame.display.update()
 
