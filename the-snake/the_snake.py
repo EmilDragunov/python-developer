@@ -26,6 +26,8 @@ SNAKE_COLOR = (0, 255, 0)
 
 APPLE_COLOR = (255, 0, 0)
 
+INEDIBLE_OBJECT_COLOR = (139, 69, 19)
+
 STONE_COLOR = (128, 128, 128)
 
 SNAKE_START = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
@@ -117,6 +119,19 @@ class Apple(GameObject):
         self.create_cell(self.position, BORDER_COLOR, 1)
 
 
+class InedibleObject(GameObject):
+    """Дочерний класс Inedibleobject."""
+
+    def __init__(self, postion=SNAKE_START):
+        self.body_color = INEDIBLE_OBJECT_COLOR
+        self.position = self.randomize_position(postion)
+
+    def draw(self):
+        """Метод draw класса InedibleObject."""
+        self.create_cell(self.position, self.body_color, 0)
+        self.create_cell(self.position, BORDER_COLOR, 1)
+
+
 class Stone(GameObject):
     """Дочерний класс Stone."""
 
@@ -156,6 +171,7 @@ def main():
 
     snake = Snake()
     apple = Apple()
+    inedible = InedibleObject()
     stone = Stone()
 
     while True:
@@ -167,11 +183,21 @@ def main():
             snake.reset()
             apple.position = apple.randomize_position(SNAKE_START)
             stone.position = stone.randomize_position(SNAKE_START)
-        if snake.get_head_position() == apple.position:
+        if snake.positions[0] == apple.position:
             snake.length += 1
             apple.position = apple.randomize_position(snake.positions)
+        elif snake.positions[0] == inedible.position:
+            inedible.position = inedible.randomize_position(snake.positions)
+            if len(snake.positions) != 1:
+                snake.length -= 1
+                snake.create_cell(snake.last, BOARD_BACKGROUND_COLOR, 0)
+                snake.last = snake.positions[-1]
+                snake.positions.remove(snake.last)
+            else:
+                snake.reset()
         snake.draw()
         apple.draw()
+        inedible.draw()
         stone.draw()
 
         pygame.display.update()
