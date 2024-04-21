@@ -20,7 +20,7 @@ ALL_CELLS = set(
 
 BOARD_BACKGROUND_COLOR = (0, 0, 0)
 
-BORDER_COLOR = (93, 216, 228)
+BORDER_COLOR = (255, 255, 255)
 
 SNAKE_COLOR = (0, 255, 0)
 
@@ -29,6 +29,8 @@ APPLE_COLOR = (255, 0, 0)
 INEDIBLE_OBJECT_COLOR = (139, 69, 19)
 
 STONE_COLOR = (128, 128, 128)
+
+YELLOW = (255, 255, 102)
 
 SNAKE_START = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
 
@@ -168,11 +170,13 @@ def handle_keys(game_object):
 def main():
     """Основной игровой цикл"""
     pygame.init()
+    font_score = pygame.font.SysFont('Arial', 25, bold=True)
 
     snake = Snake()
     apple = Apple()
     inedible = InedibleObject()
     stone = Stone()
+    score = 0
 
     while True:
         clock.tick(SPEED)
@@ -181,15 +185,18 @@ def main():
         if (snake.positions[0] in snake.positions[2:]
            or snake.positions[0] == stone.position):
             snake.reset()
+            score = 0
             apple.position = apple.randomize_position(SNAKE_START)
             stone.position = stone.randomize_position(SNAKE_START)
         if snake.positions[0] == apple.position:
             snake.length += 1
+            score += 1
             apple.position = apple.randomize_position(snake.positions)
         elif snake.positions[0] == inedible.position:
             inedible.position = inedible.randomize_position(snake.positions)
             if len(snake.positions) != 1:
                 snake.length -= 1
+                score -= 1
                 snake.create_cell(snake.last, BOARD_BACKGROUND_COLOR, 0)
                 snake.last = snake.positions[-1]
                 snake.positions.remove(snake.last)
@@ -200,6 +207,8 @@ def main():
         inedible.draw()
         stone.draw()
 
+        screen.blit(font_score.render(f'Score: {score}', True, YELLOW),
+                    (0, 0))
         pygame.display.update()
 
 
