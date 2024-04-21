@@ -30,8 +30,6 @@ INEDIBLE_OBJECT_COLOR = (139, 69, 19)
 
 STONE_COLOR = (128, 128, 128)
 
-YELLOW = (255, 255, 102)
-
 SNAKE_START = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
 
 SPEED = 15
@@ -207,7 +205,7 @@ def main():
         inedible.draw()
         stone.draw()
 
-        screen.blit(font_score.render(f'Score: {score}', True, YELLOW),
+        screen.blit(font_score.render(f'Score: {score}', True, BORDER_COLOR),
                     (0, 0))
         pygame.display.update()
 
