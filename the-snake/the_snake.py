@@ -165,10 +165,10 @@ def handle_keys(game_object):
             raise SystemExit
 
 
-def draw_score(self):
-    self.create_cell((40, 0), BOARD_BACKGROUND_COLOR, 0)
-    self.create_cell((60, 0), BOARD_BACKGROUND_COLOR, 0)
-    self.create_cell((80, 0), BOARD_BACKGROUND_COLOR, 0)
+def draw_score(object):
+    object.create_cell((40, 0), BOARD_BACKGROUND_COLOR, 0)
+    object.create_cell((60, 0), BOARD_BACKGROUND_COLOR, 0)
+    object.create_cell((80, 0), BOARD_BACKGROUND_COLOR, 0)
 
 
 def main():
