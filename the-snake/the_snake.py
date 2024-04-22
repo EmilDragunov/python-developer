@@ -165,6 +165,12 @@ def handle_keys(game_object):
             raise SystemExit
 
 
+def draw_score(self):
+    self.create_cell((40, 0), BOARD_BACKGROUND_COLOR, 0)
+    self.create_cell((60, 0), BOARD_BACKGROUND_COLOR, 0)
+    self.create_cell((80, 0), BOARD_BACKGROUND_COLOR, 0)
+
+
 def main():
     """Основной игровой цикл"""
     pygame.init()
@@ -188,16 +194,14 @@ def main():
             stone.position = stone.randomize_position(SNAKE_START)
         if snake.positions[0] == apple.position:
             snake.length += 1
-            snake.create_cell((60, 0), BOARD_BACKGROUND_COLOR, 0)
-            snake.create_cell((80, 0), BOARD_BACKGROUND_COLOR, 0)
+            draw_score(snake)
             score += 1
             apple.position = apple.randomize_position(snake.positions)
         elif snake.positions[0] == inedible.position:
             inedible.position = inedible.randomize_position(snake.positions)
             if len(snake.positions) != 1:
                 snake.length -= 1
-                snake.create_cell((60, 0), BOARD_BACKGROUND_COLOR, 0)
-                snake.create_cell((80, 0), BOARD_BACKGROUND_COLOR, 0)
+                draw_score(snake)
                 score -= 1
                 snake.create_cell(snake.last, BOARD_BACKGROUND_COLOR, 0)
                 snake.last = snake.positions[-1]
