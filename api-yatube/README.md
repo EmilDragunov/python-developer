@@ -1,22 +1,50 @@
-# api_final
-api final
+# API для Yatube
+## Описание проекта
+Моя задача заключалась в проектировании и реализации API, которое бы отвечало за обработку запросов от внешних приложений и предоставляло им доступ к необходимым функциям и данным Yatube.
+## Задание
+- Разработать недостающие модели в приложении posts на основе предоставленной документации.
+- Определить и реализовать адреса API для обработки запросов, обеспечивая удобный и структурированный доступ к данным.
+- Создать представления для API, отвечающие за обработку различных типов запросов (GET, POST, PUT, DELETE) и выдачу корректных ответов.
+### Как запустить проект:
 
-Как запустить проект:
 Клонировать репозиторий и перейти в него в командной строке:
 
-git clone https://github.com/EmilDragunov/api_final_yatube
-cd api_final_yatube
+```
+git clone https://github.com/EmilDragunov/python-developer/tree/main/api-yatube
+```
+
+```
+cd api-yatube
+```
+
 Cоздать и активировать виртуальное окружение:
 
+```
 python3 -m venv env
+```
+
+```
 source env/bin/activate
+```
+
 Установить зависимости из файла requirements.txt:
 
+```
 python3 -m pip install --upgrade pip
+```
+
+```
 pip install -r requirements.txt
+```
+
 Выполнить миграции:
 
+```
 python3 manage.py migrate
+```
+
 Запустить проект:
 
+```
 python3 manage.py runserver
+```

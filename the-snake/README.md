@@ -7,3 +7,33 @@
 - Всё, к чему можно написать докстринги, должно содержать докстринги.
 - Код должен соответствовать PEP 8.
 - Игра должна запускаться и работать, согласно правилам игры, без ошибок.
+### Как запустить проект:
+
+Клонировать репозиторий и перейти в него в командной строке:
+
+```
+git clone https://github.com/EmilDragunov/python-developer/tree/main/the-snake
+
+```
+cd the-snake
+```
+
+Cоздать и активировать виртуальное окружение:
+
+```
+python3 -m venv env
+```
+
+```
+source env/bin/activate
+```
+
+Установить зависимости из файла requirements.txt:
+
+```
+python3 -m pip install --upgrade pip
+```
+
+```
+pip install -r requirements.txt
+```
