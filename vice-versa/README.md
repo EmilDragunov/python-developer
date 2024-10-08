@@ -47,6 +47,7 @@
 
 ```
 git clone https://github.com/EmilDragunov/python-developer/tree/main/vice-versa
+```
 
 ```
 cd vice-versa
